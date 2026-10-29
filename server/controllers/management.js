@@ -26,6 +26,7 @@ export const getUserPerformance = async (req, res) => {
         },
       },
       { $unwind: "$affiliateStats" },
+      { $project: { password: 0 } },
     ]);
 
     const saleTransactions = await Promise.all(
