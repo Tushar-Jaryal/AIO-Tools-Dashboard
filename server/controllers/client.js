@@ -38,32 +38,31 @@ export const getCustomers = async (req, res) => {
 export const getTransactions = async (req, res) => {
   try {
     // sort should look like this: { "field": "userId", "sort": "desc"}
-    const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
+    const { page = 0, pageSize = 20, sort = null, search = "" } = req.query;
 
     // formatted sort should look like { userId: -1 }
     const generateSort = () => {
       const sortParsed = JSON.parse(sort);
-      const sortFormatted = {
-        [sortParsed.field]: (sortParsed.sort = "asc" ? 1 : -1),
-      };
-
-      return sortFormatted;
+      if (!sortParsed.field) return {};
+      return { [sortParsed.field]: sortParsed.sort === "asc" ? 1 : -1 };
     };
-    const sortFormatted = Boolean(sort) ? generateSort() : {};
+    const sortFormatted = sort ? generateSort() : {};
 
-    const transactions = await Transaction.find({
-      $or: [
-        { cost: { $regex: new RegExp(search, "i") } },
-        { userId: { $regex: new RegExp(search, "i") } },
-      ],
-    })
+    // escape the search text so characters like "(" don't break the regex
+    const searchRegex = new RegExp(
+      search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+      "i"
+    );
+    const filter = {
+      $or: [{ cost: { $regex: searchRegex } }, { userId: { $regex: searchRegex } }],
+    };
+
+    const transactions = await Transaction.find(filter)
       .sort(sortFormatted)
-      .skip(page * pageSize)
-      .limit(pageSize);
+      .skip(Number(page) * Number(pageSize))
+      .limit(Number(pageSize));
 
-    const total = await Transaction.countDocuments({
-      name: { $regex: search, $options: "i" },
-    });
+    const total = await Transaction.countDocuments(filter);
 
     res.status(200).json({
       transactions,

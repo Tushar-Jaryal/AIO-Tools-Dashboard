@@ -24,8 +24,9 @@ const Performance = () => {
     },
     {
       field: "createdAt",
-      headerName: "CreatedAt",
+      headerName: "Created At",
       flex: 1,
+      valueFormatter: (params) => new Date(params.value).toLocaleDateString(),
     },
     {
       field: "products",
