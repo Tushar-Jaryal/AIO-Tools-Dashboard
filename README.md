@@ -18,9 +18,11 @@ docker compose up --build
 
 Open http://localhost:9000. This starts MongoDB and the app, and loads the sample data the first time it runs on an empty database. Set `PORT=8080` to use another port.
 
+If you ran an older version with MongoDB 7, the new MongoDB 9 image can't open that data volume (MongoDB only upgrades one major version at a time). The data is just the sample set, so reset it with `docker compose down -v` and start again.
+
 ### Without Docker
 
-You need Node 18+ and a MongoDB you can reach (local, Docker or Atlas).
+You need Node 20.19+ (or 22.12+) and a MongoDB you can reach (local, Docker or Atlas).
 
 ```bash
 # API (http://localhost:9000)
@@ -32,10 +34,10 @@ npm run dev
 # Client (http://localhost:3000), in another terminal
 cd client
 npm install
-npm start
+npm run dev
 ```
 
-The client calls the API at `/api`, and in development requests are proxied to port 9000. To point it somewhere else, set `REACT_APP_BASE_URL` before building.
+The client calls the API at `/api`, and in development requests are proxied to port 9000. To point it somewhere else, set `VITE_API_URL` before building.
 
 `npm run seed` in `server/` wipes the collections and reloads the sample data.
 
@@ -54,7 +56,7 @@ This is the full stack admin dashboard project I created in my post graduation. 
 ## Front End :
 ## How It's Made:
 
-Tech used: React JS, Material UI, Redux-toolkit
+Tech used: React JS, Material UI, Redux-toolkit, Vite
 
 Material UI makes styling really easy for the react front end. Redux-toolkit makes state management easy. API calls are all made at one place using redux-toolkit query.
 

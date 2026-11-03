@@ -41,7 +41,7 @@ const Dashboard = () => {
       field: "createdAt",
       headerName: "Created At",
       flex: 1,
-      valueFormatter: (params) => new Date(params.value).toLocaleDateString(),
+      valueFormatter: (value) => new Date(value).toLocaleDateString(),
     },
     {
       field: "products",
@@ -59,7 +59,11 @@ const Dashboard = () => {
   ];
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box
+      sx={{
+        m: "1.5rem 2.5rem",
+      }}
+    >
       <FlexBetween>
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
@@ -80,12 +84,12 @@ const Dashboard = () => {
       </FlexBetween>
 
       <Box
-        mt="20px"
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="160px"
-        gap="20px"
         sx={{
+          mt: "20px",
+          display: "grid",
+          gridTemplateColumns: "repeat(12, 1fr)",
+          gridAutoRows: "160px",
+          gap: "20px",
           "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
         }}
       >
@@ -113,11 +117,13 @@ const Dashboard = () => {
           }
         />
         <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={theme.palette.background.alt}
-          p="1rem"
-          borderRadius="0.55rem"
+          sx={{
+            gridColumn: "span 8",
+            gridRow: "span 2",
+            backgroundColor: theme.palette.background.alt,
+            p: "1rem",
+            borderRadius: "0.55rem",
+          }}
         >
           <OverviewChart view="sales" isDashboard={true} />
         </Box>
@@ -146,29 +152,35 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
-          gridRow="span 3"
           sx={{
+            gridColumn: "span 8",
+            gridRow: "span 3",
+
             "& .MuiDataGrid-root": {
               border: "none",
-              borderRadius: "5rem",
+              borderRadius: "0.55rem",
             },
+
             "& .MuiDataGrid-cell": {
               borderBottom: "none",
             },
+
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: theme.palette.background.alt,
               color: theme.palette.secondary[100],
               borderBottom: "none",
             },
+
             "& .MuiDataGrid-virtualScroller": {
               backgroundColor: theme.palette.background.alt,
             },
+
             "& .MuiDataGrid-footerContainer": {
               backgroundColor: theme.palette.background.alt,
               color: theme.palette.secondary[100],
               borderTop: "none",
             },
+
             "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
               color: `${theme.palette.secondary[200]} !important`,
             },
@@ -182,20 +194,24 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 4"
-          gridRow="span 3"
-          backgroundColor={theme.palette.background.alt}
-          p="1.5rem"
-          borderRadius="0.55rem"
+          sx={{
+            gridColumn: "span 4",
+            gridRow: "span 3",
+            backgroundColor: theme.palette.background.alt,
+            p: "1.5rem",
+            borderRadius: "0.55rem",
+          }}
         >
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
             Sales By Category
           </Typography>
           <BreakdownChart isDashboard={true} />
           <Typography
-            p="0 0.6rem"
-            fontSize="0.8rem"
-            sx={{ color: theme.palette.secondary[200] }}
+            sx={{
+              p: "0 0.6rem",
+              fontSize: "0.8rem",
+              color: theme.palette.secondary[200],
+            }}
           >
             Breakdown of real states and information via category for revenue
             made for this year and total sales.

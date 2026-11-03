@@ -26,11 +26,13 @@ const BreakdownChart = ({ isDashboard = false }) => {
 
   return (
     <Box
-      height={isDashboard ? "400px" : "100%"}
-      width={undefined}
-      minHeight={isDashboard ? "325px" : undefined}
-      minWidth={isDashboard ? "325px" : undefined}
-      position="relative"
+      sx={{
+        height: isDashboard ? "400px" : "100%",
+        width: undefined,
+        minHeight: isDashboard ? "325px" : undefined,
+        minWidth: isDashboard ? "325px" : undefined,
+        position: "relative",
+      }}
     >
       <ResponsivePie
         data={formattedData}
@@ -117,13 +119,14 @@ const BreakdownChart = ({ isDashboard = false }) => {
         ]}
       />
       <Box
-        position="absolute"
-        top="50%"
-        left="50%"
-        color={theme.palette.secondary[400]}
-        textAlign="center"
         pointerEvents="none"
         sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          color: theme.palette.secondary[400],
+          textAlign: "center",
+
           transform: isDashboard
             ? "translate(-75%, -170%)"
             : "translate(-50%, -100%)",

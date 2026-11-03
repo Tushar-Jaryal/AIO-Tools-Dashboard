@@ -37,8 +37,7 @@ const Product = ({
     >
       <CardContent>
         <Typography
-          sx={{ fontSize: 14 }}
-          color={theme.palette.secondary[700]}
+          sx={{ fontSize: 14, color: theme.palette.secondary[700] }}
           gutterBottom
         >
           {category}
@@ -90,17 +89,17 @@ const Products = () => {
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box sx={{ m: "1.5rem 2.5rem" }}>
       <Header title="PRODUCTS" subtitle="See your list of products." />
       {data || !isLoading ? (
         <Box
-          mt="20px"
-          display="grid"
-          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-          justifyContent="space-between"
-          rowGap="20px"
-          columnGap="1.33%"
           sx={{
+            mt: "20px",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+            justifyContent: "space-between",
+            rowGap: "20px",
+            columnGap: "1.33%",
             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
           }}
         >

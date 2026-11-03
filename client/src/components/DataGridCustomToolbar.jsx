@@ -12,7 +12,7 @@ import FlexBetween from "./FlexBetween";
 const DataGridCustomToolbar = ({ searchInput, setSearchInput, setSearch }) => {
   return (
     <GridToolbarContainer>
-      <FlexBetween width="100%">
+      <FlexBetween sx={{ width: "100%" }}>
         <FlexBetween>
           <GridToolbarColumnsButton />
           <GridToolbarDensitySelector />
@@ -24,19 +24,21 @@ const DataGridCustomToolbar = ({ searchInput, setSearchInput, setSearch }) => {
           onChange={(e) => setSearchInput(e.target.value)}
           value={searchInput}
           variant="standard"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={() => {
-                    setSearch(searchInput);
-                    setSearchInput("");
-                  }}
-                >
-                  <Search />
-                </IconButton>
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => {
+                      setSearch(searchInput);
+                      setSearchInput("");
+                    }}
+                  >
+                    <Search />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
           }}
         />
       </FlexBetween>

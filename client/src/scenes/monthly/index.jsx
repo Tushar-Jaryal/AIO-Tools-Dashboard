@@ -39,9 +39,17 @@ const Monthly = () => {
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box
+      sx={{
+        m: "1.5rem 2.5rem",
+      }}
+    >
       <Header title="MONTHLY SALES" subtitle="Chart of monthlysales" />
-      <Box height="75vh">
+      <Box
+        sx={{
+          height: "75vh",
+        }}
+      >
         {data ? (
           <ResponsiveLine
             data={formattedData}
