@@ -26,7 +26,7 @@ const Performance = () => {
       field: "createdAt",
       headerName: "Created At",
       flex: 1,
-      valueFormatter: (params) => new Date(params.value).toLocaleDateString(),
+      valueFormatter: (value) => new Date(value).toLocaleDateString(),
     },
     {
       field: "products",
@@ -44,34 +44,44 @@ const Performance = () => {
   ];
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box
+      sx={{
+        m: "1.5rem 2.5rem",
+      }}
+    >
       <Header
         title="PERFORMANCE"
         subtitle="Track your Affiliate Sales Performance Here"
       />
       <Box
-        mt="40px"
-        height="75vh"
         sx={{
+          mt: "40px",
+          height: "75vh",
+
           "& .MuiDataGrid-root": {
             border: "none",
           },
+
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
           },
+
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: theme.palette.background.alt,
             color: theme.palette.secondary[100],
             borderBottom: "none",
           },
+
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: theme.palette.primary.light,
           },
+
           "& .MuiDataGrid-footerContainer": {
             backgroundColor: theme.palette.background.alt,
             color: theme.palette.secondary[100],
             borderTop: "none",
           },
+
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${theme.palette.secondary[200]} !important`,
           },
@@ -82,8 +92,8 @@ const Performance = () => {
           getRowId={(row) => row._id}
           rows={(data && data.sales) || []}
           columns={columns}
-          components={{
-            ColumnMenu: CustomColumnMenu,
+          slots={{
+            columnMenu: CustomColumnMenu,
           }}
         />
       </Box>

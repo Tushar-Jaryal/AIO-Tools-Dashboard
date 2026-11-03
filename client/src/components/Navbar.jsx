@@ -48,10 +48,12 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
             <MenuIcon />
           </IconButton>
           <FlexBetween
-            backgroundColor={theme.palette.background.alt}
-            borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
+            sx={{
+              backgroundColor: theme.palette.background.alt,
+              borderRadius: "9px",
+              gap: "3rem",
+              p: "0.1rem 1.5rem",
+            }}
           >
             <InputBase placeholder="Search..." />
             <IconButton>
@@ -61,7 +63,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
         </FlexBetween>
 
         {/* RIGHT SIDE */}
-        <FlexBetween gap="1.5rem">
+        <FlexBetween sx={{ gap: "1.5rem" }}>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkModeOutlined sx={{ fontSize: "25px" }} />
@@ -88,22 +90,32 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 component="img"
                 alt="profile"
                 src={profileImage}
-                height="32px"
-                width="32px"
-                borderRadius="50%"
-                sx={{ objectFit: "cover" }}
+                sx={{
+                  height: "32px",
+                  width: "32px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
               />
-              <Box textAlign="left">
+              <Box
+                sx={{
+                  textAlign: "left",
+                }}
+              >
                 <Typography
-                  fontWeight="bold"
-                  fontSize="0.85rem"
-                  sx={{ color: theme.palette.secondary[100] }}
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "0.85rem",
+                    color: theme.palette.secondary[100],
+                  }}
                 >
                   {user.name}
                 </Typography>
                 <Typography
-                  fontSize="0.75rem"
-                  sx={{ color: theme.palette.secondary[200] }}
+                  sx={{
+                    fontSize: "0.75rem",
+                    color: theme.palette.secondary[200],
+                  }}
                 >
                   {user.occupation}
                 </Typography>

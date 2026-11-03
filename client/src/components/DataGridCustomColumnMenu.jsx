@@ -1,21 +1,8 @@
-import {
-  GridColumnMenuContainer,
-  GridFilterMenuItem,
-  HideGridColMenuItem,
-} from "@mui/x-data-grid";
+import { GridColumnMenu } from "@mui/x-data-grid";
 
+// Offer filtering and hiding columns, but not sorting, in the column menu
 const CustomColumnMenu = (props) => {
-  const { hideMenu, currentColumn, open } = props;
-  return (
-    <GridColumnMenuContainer
-      hideMenu={hideMenu}
-      currentColumn={currentColumn}
-      open={open}
-    >
-      <GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
-      <HideGridColMenuItem onClick={hideMenu} column={currentColumn} />
-    </GridColumnMenuContainer>
-  );
+  return <GridColumnMenu {...props} slots={{ columnMenuSortItem: null }} />;
 };
 
 export default CustomColumnMenu;

@@ -14,7 +14,7 @@ import salesRoutes from "./routes/sales.js";
 import { seedIfEmpty } from "./data/seed.js";
 
 /* CONFIGURATION */
-dotenv.config();
+dotenv.config({ quiet: true });
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(express.json());

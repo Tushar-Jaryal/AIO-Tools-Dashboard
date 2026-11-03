@@ -84,6 +84,11 @@ export const themeSettings = (mode) => {
               default: tokensDark.primary[600],
               alt: tokensDark.primary[500],
             },
+            // the data grid (v8+) takes its colours from the palette, not from sx
+            DataGrid: {
+              bg: tokensDark.primary[500],
+              headerBg: tokensDark.primary[500],
+            },
           }
         : {
             // palette values for light mode
@@ -104,6 +109,10 @@ export const themeSettings = (mode) => {
             background: {
               default: tokensDark.grey[0],
               alt: tokensDark.grey[50],
+            },
+            DataGrid: {
+              bg: tokensDark.grey[50],
+              headerBg: tokensDark.grey[50],
             },
           }),
     },

@@ -9,15 +9,17 @@ const Transactions = () => {
   const theme = useTheme();
 
   // values to be sent to the backend
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 20,
+  });
   const [sort, setSort] = useState({});
   const [search, setSearch] = useState("");
 
   const [searchInput, setSearchInput] = useState("");
   const { data, isLoading } = useGetTransactionsQuery({
-    page,
-    pageSize,
+    page: paginationModel.page,
+    pageSize: paginationModel.pageSize,
     sort: JSON.stringify(sort),
     search,
   });
@@ -37,7 +39,7 @@ const Transactions = () => {
       field: "createdAt",
       headerName: "Created At",
       flex: 1,
-      valueFormatter: (params) => new Date(params.value).toLocaleDateString(),
+      valueFormatter: (value) => new Date(value).toLocaleDateString(),
     },
     {
       field: "products",
@@ -55,30 +57,40 @@ const Transactions = () => {
   ];
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box
+      sx={{
+        m: "1.5rem 2.5rem",
+      }}
+    >
       <Header title="TRANSACTIONS" subtitle="Entire list of transactions" />
       <Box
-        height="80vh"
         sx={{
+          height: "80vh",
+
           "& .MuiDataGrid-root": {
             border: "none",
           },
+
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
           },
+
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: theme.palette.background.alt,
             color: theme.palette.secondary[100],
             borderBottom: "none",
           },
+
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: theme.palette.primary.light,
           },
+
           "& .MuiDataGrid-footerContainer": {
             backgroundColor: theme.palette.background.alt,
             color: theme.palette.secondary[100],
             borderTop: "none",
           },
+
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${theme.palette.secondary[200]} !important`,
           },
@@ -90,17 +102,16 @@ const Transactions = () => {
           rows={(data && data.transactions) || []}
           columns={columns}
           rowCount={(data && data.total) || 0}
-          rowsPerPageOptions={[20, 50, 100]}
+          pageSizeOptions={[20, 50, 100]}
           pagination
-          page={page}
-          pageSize={pageSize}
+          paginationModel={paginationModel}
           paginationMode="server"
           sortingMode="server"
-          onPageChange={(newPage) => setPage(newPage)}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          onSortModelChange={(newSortModel) => setSort(...newSortModel)}
-          components={{ Toolbar: DataGridCustomToolbar }}
-          componentsProps={{
+          onPaginationModelChange={setPaginationModel}
+          onSortModelChange={(newSortModel) => setSort(newSortModel[0] || {})}
+          showToolbar
+          slots={{ toolbar: DataGridCustomToolbar }}
+          slotProps={{
             toolbar: { searchInput, setSearchInput, setSearch },
           }}
         />
